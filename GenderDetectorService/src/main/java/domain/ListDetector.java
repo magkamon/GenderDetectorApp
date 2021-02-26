@@ -4,17 +4,17 @@ import interfaces.Detector;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ListDetector implements Detector {
 
-    List<String> femaleNames = new ArrayList<>();
-    List<String> maleNames = new ArrayList<>();
-
+    private List<String> femaleNames = new ArrayList<>();
+    private List<String> maleNames = new ArrayList<>();
+    final private String separator = " ";
 
     public ListDetector(){
         femaleNames.add("[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ-]+[a]");
         femaleNames.add("Mercedes");
-
 
         maleNames.add("[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ-]+[^a]");
         maleNames.add("Kuba");
@@ -22,17 +22,24 @@ public class ListDetector implements Detector {
     
     @Override
     public Gender getGenderByFirstName(String name){
-        String[] splitName = name.split(" ");
-        return getGender(splitName[0]);
+        Optional<String[]> split = splitName(name);
+        if( split.isPresent() ){
+            return getGender(split.get()[0]);
+        }
+        return Gender.INDECISIVE;
     }
 
     @Override
     public Gender getGenderByMajority(String name){
-        String[] splitName = name.split(" ");
+        Optional<String[]> split = splitName(name);
+        if( split.isEmpty() ){
+            return Gender.INDECISIVE;
+        }
+
         int femaleCounter = 0;
         int maleCounter = 0;
 
-        for (String singleName : splitName) {
+        for (String singleName : split.get()) {
           Gender gender = getGender(singleName);
           if(gender.equals(Gender.FEMALE)){
               femaleCounter++;
@@ -40,7 +47,23 @@ public class ListDetector implements Detector {
               maleCounter++;
           }
         }
+        return decideOnGender(femaleCounter, maleCounter);
+    }
 
+    private Optional<String[]> splitName(String name){
+        if( name == null){
+            return Optional.empty();
+        }
+        String[] splitName = name.split(separator);
+
+        if( splitName.length == 0){
+            return Optional.empty();
+        }
+
+        return Optional.of(splitName);
+    }
+
+    private Gender decideOnGender(int femaleCounter, int maleCounter){
         if(femaleCounter > maleCounter){
             return Gender.FEMALE;
         } else if(femaleCounter < maleCounter){
@@ -48,26 +71,10 @@ public class ListDetector implements Detector {
         } else return Gender.INDECISIVE;
     }
 
-
-    public Gender getGender(String name){
+    private Gender getGender(String name){
         int femaleCounter = countTokensMatches(name,femaleNames);
         int maleCounter = countTokensMatches(name,maleNames);
-        if(femaleCounter > maleCounter){
-            return Gender.FEMALE;
-        } else if(femaleCounter < maleCounter){
-            return Gender.MALE;
-        } else return Gender.INDECISIVE;
-
-//        if(name.matches(femaleNames.get(0)) || name.matches(femaleNames.get(1)) ){
-//            System.out.println(name + " - it is a female");
-//            return domain.Gender.FEMALE;
-//        }
-//        if(name.matches(maleNames.get(0)) || name.matches(maleNames.get(1)) ){
-//            System.out.println(name + " - it is a men");
-//            return domain.Gender.MALE;
-//        }
-//        System.out.println("Cannot decide");
-//        return domain.Gender.INDECISIVE;
+        return decideOnGender(femaleCounter, maleCounter);
     }
 
     private int countTokensMatches(String name, List<String> tokens){
