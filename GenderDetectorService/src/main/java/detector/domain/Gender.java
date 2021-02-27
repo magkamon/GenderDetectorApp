@@ -1,4 +1,4 @@
-package domain;
+package detector.domain;
 
 public enum Gender {
     FEMALE("Female"),

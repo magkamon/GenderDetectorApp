@@ -1,6 +1,6 @@
-package domain;
+package detector.domain;
 
-import interfaces.Detector;
+import detector.interfaces.Detector;
 
 import java.util.ArrayList;
 import java.util.List;

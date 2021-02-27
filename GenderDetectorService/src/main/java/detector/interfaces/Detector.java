@@ -1,6 +1,6 @@
-package interfaces;
+package detector.interfaces;
 
-import domain.Gender;
+import detector.domain.Gender;
 
 public interface Detector {
 
