@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+    <link rel="stylesheet" th:href="@{../formStyle.css}">
+    <meta charset="UTF-8">
+    <title th:text="#{checkGenderForm.pageTitle}"></title>
+</head>
+<body>
+<form action="#" method="post" th:object="${genderForm}" th:action="@{/gender/submit}">
+    <fieldset>
+        <legend th:text="#{checkGenderForm.legend}"></legend>
+        <label th:text="#{checkGenderForm.name}"></label>
+        <input type="text" th:field="*{name}"/>
+        <span class="errorClass" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+
+        <label th:text="#{checkGenderForm.variants}"></label>
+        <select class="paddingClass" th:field="*{nameCheckVariant}">
+            <option th:each="element: ${nameCheckVariant}" th:value="${element}" th:text="${element.getVariant()}"/>
+        </select><br/>
+
+        <button type="submit" th:text="#{checkGenderForm.submit}"></button>
+    </fieldset>
+</form>
+
+</body>
+</html>
