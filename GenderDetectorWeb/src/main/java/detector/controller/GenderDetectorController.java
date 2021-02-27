@@ -1,5 +1,6 @@
 package detector.controller;
 
+import detector.dto.CheckedGender;
 import detector.dto.GenderForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +39,11 @@ public class GenderDetectorController {
             model.addAttribute("nameCheckVariant", detectorService.getVariants());
             return "check-gender-form";
         } else {
-        return "OK";
+            CheckedGender checkedGender = new CheckedGender();
+            checkedGender.setName(genderForm.getName());
+            checkedGender.setGender(detectorService.getGender(checkedGender.getName(), genderForm.getNameCheckVariant()));
+            model.addAttribute(checkedGender);
+        return "checked-gender-view";
         }
     }
 
