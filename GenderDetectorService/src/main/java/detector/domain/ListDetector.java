@@ -1,11 +1,13 @@
 package detector.domain;
 
 import detector.interfaces.Detector;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class ListDetector implements Detector {
 
     private List<String> femaleNames = new ArrayList<>();

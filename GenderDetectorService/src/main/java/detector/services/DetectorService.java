@@ -16,8 +16,8 @@ public class DetectorService {
     private final Detector detector;
 
     @Autowired
-    public DetectorService() {
-        this.detector = new ListDetector();
+    public DetectorService(Detector detector) {
+        this.detector = detector;
     }
 
     public List<NameCheckVariant> getVariants(){
