@@ -2,25 +2,12 @@ package detector.domain;
 
 import detector.interfaces.Detector;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Component
 public class ListDetector implements Detector {
 
-    private List<String> femaleNames = new ArrayList<>();
-    private List<String> maleNames = new ArrayList<>();
-    final private String separator = " ";
-
-    public ListDetector(){
-        femaleNames.add("[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ-]+[a]");
-        femaleNames.add("Mercedes");
-
-        maleNames.add("[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ-]+[^a]");
-        maleNames.add("Kuba");
-    }
+    private static final String SEPARATOR = " ";
     
     @Override
     public Gender getGenderByFirstName(String name){
@@ -56,7 +43,7 @@ public class ListDetector implements Detector {
         if( name == null){
             return Optional.empty();
         }
-        String[] splitName = name.split(separator);
+        String[] splitName = name.split(SEPARATOR);
 
         if( splitName.length == 0){
             return Optional.empty();
@@ -74,23 +61,28 @@ public class ListDetector implements Detector {
     }
 
     private Gender getGender(String name){
-        int femaleCounter = countTokensMatches(name,femaleNames);
-        int maleCounter = countTokensMatches(name,maleNames);
+        TokenProviderManager tokenProviderManager = new TokenProviderManager();
+        Optional<TokenProvider> femaleTokenProvider = tokenProviderManager.getProvider(Token.FEMALE);
+        Optional<TokenProvider> maleTokenProvider = tokenProviderManager.getProvider(Token.MALE);
+
+        if(femaleTokenProvider.isEmpty() || maleTokenProvider.isEmpty()){
+            return Gender.INDECISIVE;
+        }
+        int femaleCounter = countTokensMatches(name, femaleTokenProvider.get());
+        int maleCounter = countTokensMatches(name, maleTokenProvider.get());
         return decideOnGender(femaleCounter, maleCounter);
     }
 
-    private int countTokensMatches(String name, List<String> tokens){
+    private int countTokensMatches(String name, TokenProvider tokenProvider){
         int counter = 0;
-        for (String token : tokens) {
-            if(name.matches(token)){
+        Optional<String> token = tokenProvider.getNextToken();
+        while (token.isPresent()){
+            if(name.matches(token.get())){
                 counter++;
             }
+            token = tokenProvider.getNextToken();
         }
+        tokenProvider.closeReader();
         return counter;
     }
-
-
-
-
-
 }

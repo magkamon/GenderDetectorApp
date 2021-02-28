@@ -1,14 +1,13 @@
 package detector.services;
 
-import detector.domain.Gender;
-import detector.domain.ListDetector;
-import detector.domain.NameCheckVariant;
+import detector.domain.*;
 import detector.interfaces.Detector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DetectorService {
@@ -32,5 +31,8 @@ public class DetectorService {
         }
     }
 
+    public Optional<TokenProvider> getProvider(Token token){
+        return new TokenProviderManager().getProvider(token);
+    }
 
 }
