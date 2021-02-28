@@ -1,6 +1,5 @@
 package detector.controller;
 
-import detector.domain.Token;
 import detector.domain.TokenProvider;
 import detector.dto.TokenForm;
 import detector.services.DetectorService;
@@ -31,7 +30,7 @@ public class AllTokensController {
     public String chooseGender(Model model){
         model.addAttribute(new TokenForm());
         model.addAttribute("tokens", detectorService.getTokens());
-        return "choose-gender-token";
+        return "choose-gender-token-form";
     }
 
     @PostMapping("/all")
@@ -48,7 +47,7 @@ public class AllTokensController {
             nextToken = tokenProvider.get().getNextToken();
         }
         model.addAttribute("genderTokens", tokens);
-        return "all-tokens";
+        return "all-tokens-result";
     }
 
 

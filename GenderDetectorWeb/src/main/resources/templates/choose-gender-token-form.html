@@ -8,12 +8,12 @@
 <body>
 <form action="#" method="post" th:object="${tokenForm}" th:action="@{/tokens/all}">
     <fieldset>
-        <label th:text="#{checkGenderForm.variants}"></label>
+        <label th:text="#{chooseGenderTokenForm.tokens}"></label>
         <select class="paddingClass" th:field="*{token}">
             <option th:each="element: ${tokens}" th:value="${element}" th:text="${element.getToken()}"/>
         </select><br/>
 
-        <button type="submit" th:text="#{checkGenderForm.submit}"></button>
+        <button type="submit" th:text="#{general.submit}"></button>
     </fieldset>
 </form>
 
