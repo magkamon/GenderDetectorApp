@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 public class DetectorService {
-
+    private static final String serviceRelativePath = "GenderDetectorService";
     private final Detector detector;
 
     @Autowired
@@ -23,6 +23,10 @@ public class DetectorService {
         return Arrays.asList(NameCheckVariant.values());
     }
 
+    public List<Token> getTokens(){
+        return Arrays.asList(Token.values());
+    }
+
     public Gender getGender(String name, NameCheckVariant nameCheckVariant){
         if(nameCheckVariant.equals(NameCheckVariant.FIRST_NAME)){
             return detector.getGenderByFirstName(name);
@@ -32,7 +36,7 @@ public class DetectorService {
     }
 
     public Optional<TokenProvider> getProvider(Token token){
-        return new TokenProviderManager().getProvider(token);
+        return new TokenProviderManager(Optional.of(serviceRelativePath)).getProvider(token);
     }
 
 }

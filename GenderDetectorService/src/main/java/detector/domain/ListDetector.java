@@ -61,7 +61,7 @@ public class ListDetector implements Detector {
     }
 
     private Gender getGender(String name){
-        TokenProviderManager tokenProviderManager = new TokenProviderManager();
+        TokenProviderManager tokenProviderManager = new TokenProviderManager(Optional.empty());
         Optional<TokenProvider> femaleTokenProvider = tokenProviderManager.getProvider(Token.FEMALE);
         Optional<TokenProvider> maleTokenProvider = tokenProviderManager.getProvider(Token.MALE);
 

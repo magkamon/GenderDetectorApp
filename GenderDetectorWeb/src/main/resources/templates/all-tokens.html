@@ -1,0 +1,32 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+    <meta charset="utf-8"/>
+    <title>Gender check output</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous"/>
+</head>
+<body>
+<div class="container">
+    <br/>
+    <a class="btn btn-dark float-right" href="/tokens/choose-gender" role="button">Check once again</a>
+    <br/>
+    <h3 class="text-center">Result:</h3>
+    <br/>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Names</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="token : ${genderTokens}">
+            <td th:text="${token}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

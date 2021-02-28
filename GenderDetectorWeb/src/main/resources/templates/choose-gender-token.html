@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+    <link rel="stylesheet" th:href="@{../formStyle.css}">
+    <meta charset="UTF-8">
+    <title th:text="#{checkGenderForm.pageTitle}"></title>
+</head>
+<body>
+<form action="#" method="post" th:object="${tokenForm}" th:action="@{/tokens/all}">
+    <fieldset>
+        <label th:text="#{checkGenderForm.variants}"></label>
+        <select class="paddingClass" th:field="*{token}">
+            <option th:each="element: ${tokens}" th:value="${element}" th:text="${element.getToken()}"/>
+        </select><br/>
+
+        <button type="submit" th:text="#{checkGenderForm.submit}"></button>
+    </fieldset>
+</form>
+
+</body>
+</html>
