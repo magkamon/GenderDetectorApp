@@ -1,10 +1,12 @@
 package detector.domain;
 
 import detector.interfaces.Detector;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
+@Qualifier("ListDetector")
 public class ListDetector implements Detector {
 
     private static final String SEPARATOR = " ";

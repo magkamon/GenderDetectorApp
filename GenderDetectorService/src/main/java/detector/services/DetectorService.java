@@ -3,6 +3,7 @@ package detector.services;
 import detector.domain.*;
 import detector.interfaces.Detector;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -15,7 +16,7 @@ public class DetectorService {
     private final Detector detector;
 
     @Autowired
-    public DetectorService(Detector detector) {
+    public DetectorService(@Qualifier("ListDetector")Detector detector) {
         this.detector = detector;
     }
 
