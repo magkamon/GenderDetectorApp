@@ -37,7 +37,6 @@ public class AllTokensController {
     public String getAll(@ModelAttribute("tokenForm") TokenForm tokenForm, Model model){
         Optional<TokenProvider> tokenProvider = detectorService.getProvider(tokenForm.getToken());
         if(tokenProvider.isEmpty()){
-            System.out.println("HELLLLLLLO");
             return "redirect:/tokens/choose-gender";
         }
         List<String> tokens = new ArrayList<>();
@@ -49,8 +48,5 @@ public class AllTokensController {
         model.addAttribute("genderTokens", tokens);
         return "all-tokens-result";
     }
-
-
-
 
 }

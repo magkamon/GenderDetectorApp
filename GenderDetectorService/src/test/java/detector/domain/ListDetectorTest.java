@@ -16,6 +16,7 @@ class ListDetectorTest {
         //then
         assertThat(gender).isEqualTo(Gender.INDECISIVE);
     }
+
     @Test
     public void testGetByFirstNameWhenInputIsNullString(){
         //given
@@ -35,6 +36,7 @@ class ListDetectorTest {
         //then
         assertThat(gender).isEqualTo(Gender.INDECISIVE);
     }
+
     @Test
     public void testGetByMajorityWhenInputIsNullString(){
         //given

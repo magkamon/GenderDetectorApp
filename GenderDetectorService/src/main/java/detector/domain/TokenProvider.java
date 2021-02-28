@@ -17,7 +17,6 @@ public class TokenProvider {
         reader = new BufferedReader(inputStreamReader);
     }
 
-
     public Optional<String> getNextToken(){
             String line = "";
             try {

@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
 @Qualifier("IndecisiveDetector")
 public class IndecisiveDetector implements Detector {
 
-
-
     @Override
     public Gender getGenderByFirstName(String name) {
         return Gender.INDECISIVE;

@@ -14,7 +14,6 @@ import detector.services.DetectorService;
 
 import javax.validation.Valid;
 
-
 @Controller
 @RequestMapping("gender")
 public class GenderDetectorController {
@@ -46,7 +45,5 @@ public class GenderDetectorController {
         return "checked-gender-view";
         }
     }
-
-
 
 }
