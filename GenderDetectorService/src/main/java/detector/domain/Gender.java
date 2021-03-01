@@ -3,7 +3,7 @@ package detector.domain;
 public enum Gender {
     FEMALE("Female"),
     MALE("Male"),
-    INDECISIVE("Indecisive");
+    INCONCLUSIVE("Inconclusive");
 
     String gender;
 

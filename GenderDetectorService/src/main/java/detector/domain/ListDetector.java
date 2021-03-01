@@ -14,17 +14,17 @@ public class ListDetector implements Detector {
     @Override
     public Gender getGenderByFirstName(String name){
         Optional<String[]> split = splitName(name);
-        if( split.isPresent() ){
+        if(split.isPresent()){
             return getGender(split.get()[0]);
         }
-        return Gender.INDECISIVE;
+        return Gender.INCONCLUSIVE;
     }
 
     @Override
     public Gender getGenderByMajority(String name){
         Optional<String[]> split = splitName(name);
-        if( split.isEmpty() ){
-            return Gender.INDECISIVE;
+        if(split.isEmpty()){
+            return Gender.INCONCLUSIVE;
         }
 
         int femaleCounter = 0;
@@ -42,15 +42,14 @@ public class ListDetector implements Detector {
     }
 
     private Optional<String[]> splitName(String name){
-        if( name == null){
+        if(name == null){
             return Optional.empty();
         }
         String[] splitName = name.split(SEPARATOR);
 
-        if( splitName.length == 0){
+        if(splitName.length == 0){
             return Optional.empty();
         }
-
         return Optional.of(splitName);
     }
 
@@ -59,16 +58,16 @@ public class ListDetector implements Detector {
             return Gender.FEMALE;
         } else if(femaleCounter < maleCounter){
             return Gender.MALE;
-        } else return Gender.INDECISIVE;
+        } else return Gender.INCONCLUSIVE;
     }
 
     private Gender getGender(String name){
-        TokenProviderManager tokenProviderManager = new TokenProviderManager(Optional.empty());
+        TokenProviderManager tokenProviderManager = new TokenProviderManager();
         Optional<TokenProvider> femaleTokenProvider = tokenProviderManager.getProvider(Token.FEMALE);
         Optional<TokenProvider> maleTokenProvider = tokenProviderManager.getProvider(Token.MALE);
 
         if(femaleTokenProvider.isEmpty() || maleTokenProvider.isEmpty()){
-            return Gender.INDECISIVE;
+            return Gender.INCONCLUSIVE;
         }
         int femaleCounter = countTokensMatches(name, femaleTokenProvider.get());
         int maleCounter = countTokensMatches(name, maleTokenProvider.get());

@@ -14,7 +14,7 @@ class ListDetectorTest {
         //when
         Gender gender = listDetector.getGenderByFirstName(name);
         //then
-        assertThat(gender).isEqualTo(Gender.INDECISIVE);
+        assertThat(gender).isEqualTo(Gender.INCONCLUSIVE);
     }
 
     @Test
@@ -24,7 +24,7 @@ class ListDetectorTest {
         //when
         Gender gender = listDetector.getGenderByFirstName(name);
         //then
-        assertThat(gender).isEqualTo(Gender.INDECISIVE);
+        assertThat(gender).isEqualTo(Gender.INCONCLUSIVE);
     }
 
     @Test
@@ -34,7 +34,7 @@ class ListDetectorTest {
         //when
         Gender gender = listDetector.getGenderByFirstName(name);
         //then
-        assertThat(gender).isEqualTo(Gender.INDECISIVE);
+        assertThat(gender).isEqualTo(Gender.INCONCLUSIVE);
     }
 
     @Test
@@ -44,7 +44,7 @@ class ListDetectorTest {
         //when
         Gender gender = listDetector.getGenderByFirstName(name);
         //then
-        assertThat(gender).isEqualTo(Gender.INDECISIVE);
+        assertThat(gender).isEqualTo(Gender.INCONCLUSIVE);
     }
 
     @Test
@@ -64,7 +64,7 @@ class ListDetectorTest {
         //when
         Gender gender = listDetector.getGenderByMajority(name);
         //then
-        assertThat(gender).isEqualTo(Gender.INDECISIVE);
+        assertThat(gender).isEqualTo(Gender.INCONCLUSIVE);
     }
 
     @Test

@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @Service
 public class DetectorService {
-    private static final String serviceRelativePath = "GenderDetectorService";
     private final Detector detector;
 
     @Autowired
@@ -37,7 +36,7 @@ public class DetectorService {
     }
 
     public Optional<TokenProvider> getProvider(Token token){
-        return new TokenProviderManager(Optional.of(serviceRelativePath)).getProvider(token);
+        return new TokenProviderManager().getProvider(token);
     }
 
 }
